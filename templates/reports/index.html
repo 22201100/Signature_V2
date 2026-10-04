@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm"><div class="card-body">
+  <h4 class="mb-3">Reports</h4>
+  <canvas id="chart" height="120"></canvas>
+</div></div>
+{% endblock %}
+{% block scripts %}
+<script>
+fetch('/reports/attendance.json').then(r=>r.json()).then(d=>{
+  new Chart(document.getElementById('chart'), {
+    type:'bar',
+    data:{labels:d.labels, datasets:[{label:'Attendance Records', data:d.counts}]},
+    options:{responsive:true, maintainAspectRatio:false}
+  });
+});
+</script>
+{% endblock %}

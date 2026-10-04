@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero p-4 p-md-5 mb-4 rounded-4 text-white shadow-sm">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <h1 class="display-6 fw-bold">Smart Biometric Attendance</h1>
+      <p class="lead">ESP32 WROOM‑32E + RDM‑503 • Real‑time attendance with secure authentication & beautiful analytics.</p>
+      <div class="d-flex gap-2 flex-wrap">
+        <a class="btn btn-light" href="/students/new/">Enroll Student</a>
+        <a class="btn btn-outline-light" href="/attendance/sessions/new/">Open Session</a>
+        <a class="btn btn-outline-light" href="/devices/connect/">Connect Device</a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center">
+      <img src="/static/icons/fingerprint.svg" width="120" alt="fingerprint"/>
+    </div>
+  </div>
+</section>
+
+<div class="row g-3">
+  <div class="col-md-4"><div class="stat-card shadow-sm"><div class="stat-num text-primary">{{ count_students|default:0 }}</div><div class="stat-label">Students</div></div></div>
+  <div class="col-md-4"><div class="stat-card shadow-sm"><div class="stat-num text-success">{{ count_sessions|default:0 }}</div><div class="stat-label">Sessions</div></div></div>
+  <div class="col-md-4"><div class="stat-card shadow-sm"><div class="stat-num text-warning">{{ count_records|default:0 }}</div><div class="stat-label">Records</div></div></div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6">
+    <div class="card shadow-sm"><div class="card-body">
+      <h5>Quick Links</h5>
+      <ul class="list-unstyled mb-0">
+        <li>• Sign up / login</li>
+        <li>• Register student (+ fingerprint)</li>
+        <li>• Create session</li>
+        <li>• Connect device (ESP32)</li>
+        <li>• Scan & record → reports</li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm"><div class="card-body">
+      <h5 class="mb-3">Mini Chart</h5>
+      <canvas id="mini" height="100"></canvas>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+fetch('/reports/attendance.json').then(r=>r.json()).then(d=>{
+  new Chart(document.getElementById('mini'),{type:'line',data:{labels:d.labels,datasets:[{label:'Records',data:d.counts}]}});
+});
+</script>
+{% endblock %}

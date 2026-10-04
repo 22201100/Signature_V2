@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm"><div class="card-body">
+  <h4>Confirm Delete</h4>
+  <form method="post">{% csrf_token %}<a class="btn btn-secondary" href="javascript:history.back()">Cancel</a> <button class="btn btn-danger">Delete</button></form>
+</div></div>
+{% endblock %}

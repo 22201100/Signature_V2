@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signature V2.0 — Research Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/style.css" rel="stylesheet">
+</head>
+<body class="bg-soft">
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/static/icons/esp32.svg" height="30" class="me-2" alt="ESP32"/>
+      <span class="fw-bold">Signature V2.0</span>
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/students/"><span class="material-icons">groups</span> Students</a></li>
+        <li class="nav-item"><a class="nav-link" href="/attendance/sessions/"><span class="material-icons">fact_check</span> Attendance</a></li>
+        <li class="nav-item"><a class="nav-link" href="/attendance/courses/"><span class="material-icons">book</span> Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="/devices/"><span class="material-icons">sensors</span> Devices</a></li>
+        <li class="nav-item"><a class="nav-link" href="/reports/"><span class="material-icons">insights</span> Reports</a></li>
+        <li class="nav-item"><a class="nav-link" href="/core/about/"><span class="material-icons">info</span> About</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="/core/settings/"><span class="material-icons">settings</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/accounts/profile/"><span class="material-icons">account_circle</span> {{ user.username }}</a></li>
+          <li class="nav-item"><a class="nav-link" href="/accounts/logout/"><span class="material-icons">logout</span></a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="/accounts/login/"><span class="material-icons">login</span> Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/accounts/signup/"><span class="material-icons">person_add</span> Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  {% for m in messages %}
+    <div class="alert alert-{{ m.tags }} shadow-sm">{{ m }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center small text-muted py-4">© 2025 Signature V2.0 — ESP32 + RDM-503 Research</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

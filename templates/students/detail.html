@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm"><div class="card-body d-flex gap-3">
+  <img src="{{ obj.photo|default:'/static/icons/avatar.svg' }}" width="120" class="rounded" alt="avatar">
+  <div>
+    <h4>{{ obj.name }}</h4>
+    <p class="mb-1"><strong>ID:</strong> {{ obj.student_id }} | <strong>Dept:</strong> {{ obj.department }}</p>
+    <p class="text-muted">{{ obj.email }}</p>
+    <a class="btn btn-outline-primary btn-sm" href="/students/{{obj.id}}/edit/">Edit</a>
+    <a class="btn btn-outline-danger btn-sm" href="/students/{{obj.id}}/delete/">Delete</a>
+    <hr>
+    <h6>Fingerprint Templates</h6>
+    <ul class="mb-0">{% for t in obj.templates.all %}<li>{{ t.template_id }} (q={{ t.quality }})</li>{% empty %}<li>None</li>{% endfor %}</ul>
+  </div>
+</div></div>
+{% endblock %}

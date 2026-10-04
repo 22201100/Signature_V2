@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm"><div class="card-body">
+  <h4>Connect Device</h4>
+  <p class="text-muted">This simulates BLE/Wi‑Fi handshake with an ESP32 device.</p>
+  <form method="post">{% csrf_token %}
+    <div class="row g-2 align-items-end">
+      <div class="col-md-6"><label class="form-label">Device Name</label><input name="name" class="form-control" value="ESP32-WROOM-32E #1" required></div>
+      <div class="col-md-3"><button class="btn btn-primary w-100">Connect</button></div>
+    </div>
+  </form>
+</div></div>
+{% endblock %}
